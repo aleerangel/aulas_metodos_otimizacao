@@ -1,14 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <memory.h>
 #include "pmm.h"
 
 int main() {
     char arq[50];
-    strcpy(arq, "pmm3.txt");
+    strcpy(arq, "pmm1.txt");
     ler_dados(arq);
     strcpy(arq, "teste.txt");
     testar_dados(arq);
+    
+    SolucaoBIN solB;
+    memset(&solB, 0, sizeof(SolucaoBIN));
+    solB.mat_sol[0][0] = 1;
+    solB.mat_sol[0][1] = 1;
+    solB.mat_sol[1][0] = 1;
+    solB.mat_sol[1][2] = 1;
+    calcular_FOBIN(solB);
+    escrever_solBIN(solB);
+
     return 0;
 }
 
@@ -48,5 +59,24 @@ void testar_dados(char* arq) {
     }
     if(strcmp(arq, "") != 0) {
         fclose(f);
+    }
+}
+
+void escrever_solBIN(SolucaoBIN& s) {
+    printf("\nFO: %d\n", s.fo);
+    for(int i = 0; i < num_moc; i++) {
+        for(int j = 0; j < num_obj; j++) {
+            printf("%d ", s.mat_sol[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void calcular_FOBIN(SolucaoBIN& s) {
+    s.fo = 0;
+    for(int i = 0; i < num_moc; i++) {
+        for(int j = 0; j < num_obj; j++) {
+            s.fo += vet_val_obj[j] * s.mat_sol[i][j];
+        }
     }
 }
