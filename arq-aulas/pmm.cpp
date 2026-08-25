@@ -4,6 +4,8 @@
 #include <memory.h>
 #include "pmm.h"
 
+#define MAX(X, Y) ((X > Y) ? X : Y)
+
 int main() {
     char arq[50];
     strcpy(arq, "pmm1.txt");
@@ -75,8 +77,20 @@ void escrever_solBIN(SolucaoBIN& s) {
 void calcular_FOBIN(SolucaoBIN& s) {
     s.fo = 0;
     for(int i = 0; i < num_moc; i++) {
+        int peso = 0;
         for(int j = 0; j < num_obj; j++) {
             s.fo += vet_val_obj[j] * s.mat_sol[i][j];
+            peso += vet_pes_obj[j] * s.mat_sol[i][j];
         }
+        s.fo -= PESO_CAP * MAX(0, peso - vet_cap_moc[i]);
     }
+
+    
+    for(int j = 0; j < num_obj; j++) {
+        int qtd = 0;
+        for(int i = 0; i < num_moc; i++) {
+            qtd += s.mat_sol[i][j];
+        }
+        s.fo -= PESO_DUP * MAX(0, qtd - 1);
+    } 
 }

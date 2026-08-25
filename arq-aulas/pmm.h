@@ -1,6 +1,9 @@
 #define MAX_OBJ 500
 #define MAX_MOC 50
 
+const int PESO_CAP = 10;
+const int PESO_DUP = 100;
+
 typedef struct tSolucaoBIN{
     int mat_sol[MAX_MOC][MAX_OBJ];
     int fo;
