@@ -16,3 +16,5 @@ int vet_lim_nav[MAX_NAV];
 
 void ler_dados(char* arq);
 void testar_dados(char* arq);
+void escrever_sol(Solucao& s, char* arq);
+void calcular_fo(Solucao& s);

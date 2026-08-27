@@ -10,6 +10,9 @@ int main() {
     ler_dados(arq);
     strcpy(arq, "teste1.txt");
     testar_dados(arq);
+    Solucao sol;
+    memset(&sol, 0, sizeof(sol));
+    escrever_sol(sol, "");
 
     return 0;
 }
@@ -56,4 +59,29 @@ void testar_dados(char* arq) {
     }
 
     fclose(f);
+}
+
+void escrever_sol(Solucao& s, char* arq) {
+    FILE* f;
+    if(strcmp(arq, "") == 0) {
+        f = stdout;
+    } else {
+        f = fopen(arq, "w");
+    }
+    
+    fprintf(f, "FO: %d\n", s.fo);
+    for(int k = 0; k < num_ber; k++) {
+        for(int n = 0; n < num_nav; n++) {
+            fprintf(f, "%d ",s.mat_sol[k][n]);
+        }
+        fprintf(f, "\n");
+    }
+
+    if(strcmp(arq, "") != 0) {
+        fclose(f);
+    } 
+}
+
+void calcular_fo(Solucao& s) {
+
 }
