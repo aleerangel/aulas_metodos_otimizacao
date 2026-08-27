@@ -1,6 +1,11 @@
 #define MAX_NAV 100
 #define MAX_BER 20
 
+typedef struct tSolucao{
+    int mat_sol[MAX_BER][MAX_NAV];
+    int fo; 
+} Solucao;
+
 int num_nav;
 int num_ber;
 int mat_tem_ate[MAX_BER][MAX_NAV];
