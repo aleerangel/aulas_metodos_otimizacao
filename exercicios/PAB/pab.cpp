@@ -12,6 +12,7 @@ int main() {
     testar_dados(arq);
     Solucao sol;
     memset(&sol, 0, sizeof(sol));
+    calcular_fo(sol);
     escrever_sol(sol, "");
 
     return 0;
@@ -83,5 +84,10 @@ void escrever_sol(Solucao& s, char* arq) {
 }
 
 void calcular_fo(Solucao& s) {
-
+    s.fo = 0;
+    for(int k = 0; k < num_ber; k++) {
+        for(int n = 0; n < num_nav; n++) {
+            s.fo += (s.mat_sol[k][n] - vet_che_nav[n] + mat_tem_ate[k][n]); 
+        }
+    }
 }
