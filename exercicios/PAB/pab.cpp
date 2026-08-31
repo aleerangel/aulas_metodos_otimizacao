@@ -90,12 +90,18 @@ void calcular_fo(Solucao& s) {
     for(int k = 0; k < num_ber; k++) {
         int tempo = vet_abe_ber[k];
         for(int j = 0; j < s.vet_qtd_ber[k]; j++) {
-            int n = s.vet_seq_ber[k][j];
-            if(tempo < vet_che_nav[n]) {
-                tempo = vet_che_nav[n];
+            int nav = s.vet_seq_ber[k][j];
+            if(tempo < vet_che_nav[nav]) {
+                tempo = vet_che_nav[nav];
             }
-            s.fo += tempo - vet_che_nav[n] + mat_tem_ate[k][n];
-            tempo += mat_tem_ate[k][n];
+            tempo += mat_tem_ate[k][nav];
+            s.fo += tempo - vet_che_nav[nav];
+            if(tempo > vet_lim_nav[nav]) {
+                s.fo += PES_PRAZO_NAV * (tempo - vet_lim_nav[nav]);
+            }
+        }
+        if(tempo > vet_fec_ber[k]) {
+            s.fo += PES_FEC_BER * (tempo - vet_fec_ber[k]);
         }
     }
 }

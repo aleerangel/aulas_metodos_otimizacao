@@ -1,5 +1,7 @@
 #define MAX_NAV 100
 #define MAX_BER 20
+#define PES_PRAZO_NAV 100
+#define PES_FEC_BER 100
 
 typedef struct tSolucao{
     int vet_seq_ber[MAX_BER][MAX_NAV];
