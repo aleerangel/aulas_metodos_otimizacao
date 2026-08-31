@@ -2,7 +2,8 @@
 #define MAX_BER 20
 
 typedef struct tSolucao{
-    int mat_sol[MAX_BER][MAX_NAV];
+    int vet_seq_ber[MAX_BER][MAX_NAV];
+    int vet_qtd_ber[MAX_BER];
     int fo; 
 } Solucao;
 

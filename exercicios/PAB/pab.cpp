@@ -11,7 +11,8 @@ int main() {
     strcpy(arq, "teste1.txt");
     testar_dados(arq);
     Solucao sol;
-    memset(&sol, -1, sizeof(sol));
+    memset(sol.vet_seq_ber, -1, sizeof(sol.vet_seq_ber));
+    memset(sol.vet_qtd_ber, 0, sizeof(sol.vet_qtd_ber));
     calcular_fo(sol);
     escrever_sol(sol, "");
 
@@ -72,8 +73,9 @@ void escrever_sol(Solucao& s, char* arq) {
     
     fprintf(f, "FO: %d\n", s.fo);
     for(int k = 0; k < num_ber; k++) {
-        for(int n = 0; n < num_nav; n++) {
-            fprintf(f, "%d ",s.mat_sol[k][n]);
+        fprintf(f, "Berco %d: ", k + 1);
+        for(int i = 0; i < s.vet_qtd_ber[k]; i++) {
+            fprintf(f, "%d ", s.vet_seq_ber[i] + 1);
         }
         fprintf(f, "\n");
     }
@@ -86,10 +88,14 @@ void escrever_sol(Solucao& s, char* arq) {
 void calcular_fo(Solucao& s) {
     s.fo = 0;
     for(int k = 0; k < num_ber; k++) {
-        for(int n = 0; n < num_nav; n++) {
-            if(s.mat_sol[k][n] != -1) {
-                s.fo += (s.mat_sol[k][n] - vet_che_nav[n] + mat_tem_ate[k][n]); 
+        int tempo = vet_abe_ber[k];
+        for(int j = 0; j < s.vet_qtd_ber[k]; k++) {
+            int n = s.vet_seq_ber[k][j];
+            if(tempo < vet_che_nav[n]) {
+                tempo = vet_che_nav[n];
             }
+            s.fo += tempo - vet_che_nav[n] + mat_tem_ate[k][n];
+            tempo += mat_tem_ate[k][n];
         }
     }
 }
