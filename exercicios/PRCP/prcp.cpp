@@ -46,3 +46,28 @@ void testar_dados(char* arq) {
     }
     if(strcmp(arq, "") != 0) fclose(f);
 }
+
+void escrever_solucao(Solucao& s, char* arq) {
+    FILE* f;
+    if(strcmp(arq, "") == 0) {
+        f = stdout;
+    } else f = fopen(arq, "w");
+    fprintf(f, "FO: %d", s.fo);
+    for(int n = 1; n <= num_pon; n++) {
+        fprintf(f, "%d ", s.vet_sol[n]);
+    }
+    if(strcmp(arq, "") != 0) fclose(f);
+}
+
+void calcular_fo(Solucao& s) {
+    s.fo = num_pon;
+    for(int n = 1; n <= num_pon; n++) {
+        int id = (n - 1) * num_pos + s.vet_sol[n];
+        for(int m = 1; m <= vet_num_con_pos[id]; m++) {
+            if(s.vet_sol[(mat_con[id][m] - 1) / num_pos + 1] == (mat_con[id][m] - 1) % num_pos + 1) {
+                s.fo --;
+                break;
+            }
+        }
+    }
+}
