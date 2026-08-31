@@ -89,7 +89,7 @@ void calcular_fo(Solucao& s) {
     s.fo = 0;
     for(int k = 0; k < num_ber; k++) {
         int tempo = vet_abe_ber[k];
-        for(int j = 0; j < s.vet_qtd_ber[k]; k++) {
+        for(int j = 0; j < s.vet_qtd_ber[k]; j++) {
             int n = s.vet_seq_ber[k][j];
             if(tempo < vet_che_nav[n]) {
                 tempo = vet_che_nav[n];
