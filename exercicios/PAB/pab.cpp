@@ -59,7 +59,6 @@ void testar_dados(char* arq) {
     for(int n = 0; n < num_nav; n++) {
         fprintf(f, "%d ", vet_lim_nav[n]);
     }
-
     fclose(f);
 }
 

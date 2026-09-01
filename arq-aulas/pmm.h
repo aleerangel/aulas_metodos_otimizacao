@@ -21,9 +21,16 @@ int vet_val_obj[MAX_OBJ];
 int vet_pes_obj[MAX_OBJ];
 int vet_cap_moc[MAX_MOC];
 
+int vet_ind_obj_ord[MAX_OBJ];
+
 void ler_dados(char* arq);
 void testar_dados(char* arq);
 void calcular_FOBIN(SolucaoBIN& s);
 void escrever_solBIN(SolucaoBIN& s);
 void calcular_FO(Solucao& s);
 void escrever_sol(Solucao& s);
+
+void heu_con_ale(Solucao& s);
+void heu_con_gul(Solucao& s);
+void heu_con_ale_gul(Solucao& s, const int per_ale);
+void ordenar_objetos();
