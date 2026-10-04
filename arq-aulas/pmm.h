@@ -30,6 +30,7 @@ void escrever_solBIN(SolucaoBIN& s);
 void calcular_FO(Solucao& s);
 void escrever_sol(Solucao& s);
 
+void gerar_vizinha(Solucao& s);
 void heu_con_ale(Solucao& s);
 void heu_con_gul(Solucao& s);
 void heu_con_ale_gul(Solucao& s, const int per_ale);

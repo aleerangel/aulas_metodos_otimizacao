@@ -8,52 +8,21 @@
 #define MAX(X, Y) ((X > Y) ? X : Y)
 
 int main() {
-    srand(time(NULL));
-    char arq[50];
-    strcpy(arq, "pmm2.txt");
-    ler_dados(arq);
-    ordenar_objetos();
-    Solucao solA, solG, solAG;
-    clock_t h;
-    double tempoA, tempoG, tempoAG;
-    h = clock();
-    heu_con_ale(solA);
-    tempoA = ((double)(clock() - h)) / CLOCKS_PER_SEC;
-    heu_con_gul(solG);
-    tempoG = ((double)(clock() - h)) / CLOCKS_PER_SEC;
-    heu_con_ale_gul(solAG, 10);
-    tempoAG = ((double)(clock() - h)) / CLOCKS_PER_SEC;
-
-    calcular_FO(solA);
-    calcular_FO(solG);
-    calcular_FO(solAG);
-
-    printf("FOA: %d\tTempo: %.5f\n", solA.fo, tempoA);
-    printf("FOG: %d\tTempo: %.5f\n", solG.fo, tempoG);
-    printf("FOAG: %d\tTempo: %.5f\n", solAG.fo, tempoAG);
-    
-    // SolucaoBIN solB;
-    // memset(&solB, 0, sizeof(SolucaoBIN));
-    // solB.mat_sol[0][0] = 1;
-    // solB.mat_sol[0][1] = 1;
-    // solB.mat_sol[1][0] = 1;
-    // solB.mat_sol[1][2] = 1;
-    // calcular_FOBIN(solB);
-    // escrever_solBIN(solB);
-
-    /*Solucao sol;
-    sol.vet_sol[0] = 0;
-    sol.vet_sol[1] = 0;
-    sol.vet_sol[2] = 1;
-    sol.vet_sol[3] = -1;
+    ler_dados("pmm1.txt");
+    Solucao sol, viz;
+    heu_con_ale(sol);
     calcular_FO(sol);
+    memcpy(&viz, &sol, sizeof(Solucao));
+    gerar_vizinha(viz);
+    calcular_FO(viz);
     escrever_sol(sol);
-    */
+    escrever_sol(viz);
 
     return 0;
 }
 
 void ler_dados(char* arq) {
+    srand(time(NULL));
     FILE* f = fopen(arq, "r");
     fscanf(f, "%d %d", &num_obj, &num_moc);
     for(int j = 0; j < num_obj; j++) {
@@ -144,9 +113,18 @@ void escrever_sol(Solucao& s) {
     for(int j = 0; j < num_obj; j++) {
         printf("%d ", s.vet_sol[j]);
     }
-    printf("\n");
-    
+    printf("\n");   
 }
+
+void gerar_vizinha(Solucao& s) {
+    int obj = rand() % num_obj;
+    int moc;
+    do {
+        moc = rand() % (num_moc + 1) - 1;
+    } while (moc == s.vet_sol[obj]);
+    s.vet_sol[obj] = moc;
+}
+
 
 void heu_con_ale(Solucao& s) {
     for(int j = 0; j < num_obj; j++) {
