@@ -119,3 +119,21 @@ void heu_cons_ale(Solucao& s) {
         s.vet_qtd_ber[berco]++;
     }
 }
+
+void ordenar_navios() {
+    for(int n = 0; n < num_nav; n++) {
+        vet_nav_ord[n] = n;
+    }
+    int flag = 1;
+    while(flag) {
+        flag = 0;
+        for(int j = 0; j < num_nav - 1; j++) {
+            if(vet_che_nav[vet_nav_ord[j]] > vet_che_nav[vet_nav_ord[j + 1]]) {
+                int aux = vet_nav_ord[j + 1];
+                vet_nav_ord[j + 1] = vet_nav_ord[j];
+                vet_nav_ord[j] = aux;
+                flag = 1;
+            }
+        }
+    }
+}

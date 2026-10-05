@@ -15,6 +15,7 @@ int mat_tem_ate[MAX_BER][MAX_NAV];
 int vet_abe_ber[MAX_BER];
 int vet_fec_ber[MAX_BER];
 int vet_che_nav[MAX_NAV];
+int vet_nav_ord[MAX_NAV];
 int vet_lim_nav[MAX_NAV];
 
 void ler_dados(char* arq);
@@ -22,3 +23,4 @@ void testar_dados(char* arq);
 void escrever_sol(Solucao& s, char* arq);
 void calcular_fo(Solucao& s);
 void heu_cons_ale(Solucao& s);
+void ordenar_navios();
