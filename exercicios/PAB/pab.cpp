@@ -2,9 +2,11 @@
 #include <stdlib.h>
 #include <memory.h>
 #include <string.h>
+#include <time.h>
 #include "pab.h"
 
 int main() {
+    srand(time(NULL));
     char arq[50];
     strcpy(arq, "i01.txt");
     ler_dados(arq);
@@ -74,7 +76,7 @@ void escrever_sol(Solucao& s, char* arq) {
     for(int k = 0; k < num_ber; k++) {
         fprintf(f, "Berco %d: ", k + 1);
         for(int i = 0; i < s.vet_qtd_ber[k]; i++) {
-            fprintf(f, "%d ", s.vet_seq_ber[i] + 1);
+            fprintf(f, "%d ", s.vet_seq_ber[k][i] + 1);
         }
         fprintf(f, "\n");
     }
@@ -102,5 +104,18 @@ void calcular_fo(Solucao& s) {
         if(tempo > vet_fec_ber[k]) {
             s.fo += PES_FEC_BER * (tempo - vet_fec_ber[k]);
         }
+    }
+}
+
+void heu_cons_ale(Solucao& s) {
+    //para cada navio, escolhe um berco aleatoriamente e insere ao final 
+    memset(s.vet_qtd_ber, 0, sizeof(s.vet_qtd_ber));
+    for(int n = 0; n < num_nav; n++) {
+        int berco;
+        do{
+            berco = rand() % num_ber;
+        } while (mat_tem_ate[berco][n] == 0);
+        s.vet_seq_ber[berco][s.vet_qtd_ber[berco]] = n;
+        s.vet_qtd_ber[berco]++;
     }
 }

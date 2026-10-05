@@ -21,3 +21,4 @@ void ler_dados(char* arq);
 void testar_dados(char* arq);
 void escrever_sol(Solucao& s, char* arq);
 void calcular_fo(Solucao& s);
+void heu_cons_ale(Solucao& s);
