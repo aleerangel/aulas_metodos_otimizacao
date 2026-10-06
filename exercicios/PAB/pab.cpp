@@ -178,3 +178,28 @@ void heu_con_ale_gul(Solucao& s, const int per_ale) {
         berco_atual = (berco_atual + 1) % num_ber;
     }
 }
+
+void gerar_vizinha(Solucao& s) {
+    //escolhe um berco aleatorio 
+    int ber_ori;
+    do {
+        ber_ori = rand() % num_ber;
+    } while (s.vet_qtd_ber[ber_ori] == 0); 
+    //escolhe um navio aleatorio do berco
+    int pos_nav = rand() % s.vet_qtd_ber[ber_ori];
+    int nav = s.vet_seq_ber[ber_ori][pos_nav];
+    //remove o navio do berco
+    for(int i = pos_nav; i < s.vet_qtd_ber[ber_ori] - 1; i++) {
+        s.vet_seq_ber[ber_ori][i] = s.vet_seq_ber[ber_ori][i + 1];
+    }
+    s.vet_qtd_ber[ber_ori]--;
+    //escolhe outro berco aleatorio que possa atender o navio
+    //se for escolhido o mesmo berco, verifica se o navio ja esta na ultima posicao
+    int ber_des;
+    do {
+        ber_des = rand() % num_ber;
+    } while (mat_tem_ate[ber_des][nav] == 0 || (ber_des == ber_ori && pos_nav == s.vet_qtd_ber[ber_des]));
+    //insere o navio no final do berco 
+    s.vet_seq_ber[ber_des][s.vet_qtd_ber[ber_des]] = nav;
+    s.vet_qtd_ber[ber_des]++; 
+}
