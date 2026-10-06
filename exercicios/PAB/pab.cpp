@@ -142,6 +142,7 @@ void ordenar_navios() {
 void heu_con_gul(Solucao& s) {
     //aloca os navios por ordem de chegada de maneira sequencial nos bercos disponiveis
     memset(s.vet_qtd_ber, 0, sizeof(s.vet_qtd_ber));
+    ordenar_navios();
     int berco_atual = 0;
     for(int n = 0; n < num_nav; n++) {
         while(mat_tem_ate[berco_atual][vet_nav_ord[n]] == 0) {
