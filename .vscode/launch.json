@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/alexandrerangel/Projetos/Metodos/arq-aulas",
-      "program": "/home/alexandrerangel/Projetos/Metodos/arq-aulas/build/Debug/outDebug",
+      "cwd": "/home/alexandrerangel/UFES/Metodos/prova2Metodos (1)",
+      "program": "/home/alexandrerangel/UFES/Metodos/prova2Metodos (1)/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
