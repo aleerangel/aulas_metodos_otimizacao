@@ -107,7 +107,7 @@ void calcular_fo(Solucao& s) {
     }
 }
 
-void heu_cons_ale(Solucao& s) {
+void heu_con_ale(Solucao& s) {
     //para cada navio, escolhe um berco aleatoriamente e insere ao final 
     memset(s.vet_qtd_ber, 0, sizeof(s.vet_qtd_ber));
     for(int n = 0; n < num_nav; n++) {
@@ -121,6 +121,7 @@ void heu_cons_ale(Solucao& s) {
 }
 
 void ordenar_navios() {
+    //ordena por horario de chegada
     for(int n = 0; n < num_nav; n++) {
         vet_nav_ord[n] = n;
     }
@@ -135,5 +136,19 @@ void ordenar_navios() {
                 flag = 1;
             }
         }
+    }
+}
+
+void heu_con_gul(Solucao& s) {
+    //aloca os navios por ordem de chegada de maneira sequencial nos bercos disponiveis
+    memset(s.vet_qtd_ber, 0, sizeof(s.vet_qtd_ber));
+    int berco_atual = 0;
+    for(int n = 0; n < num_nav; n++) {
+        while(mat_tem_ate[berco_atual][vet_nav_ord[n]] == 0) {
+            berco_atual = (berco_atual + 1) % num_ber;
+        }
+        s.vet_seq_ber[berco_atual][s.vet_qtd_ber[berco_atual]] = vet_nav_ord[n];
+        s.vet_qtd_ber[berco_atual]++;
+        berco_atual = (berco_atual + 1) % num_ber;
     }
 }

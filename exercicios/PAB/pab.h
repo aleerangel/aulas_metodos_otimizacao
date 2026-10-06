@@ -24,3 +24,4 @@ void escrever_sol(Solucao& s, char* arq);
 void calcular_fo(Solucao& s);
 void heu_cons_ale(Solucao& s);
 void ordenar_navios();
+void heu_con_gul(Solucao& s);
