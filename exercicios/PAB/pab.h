@@ -25,3 +25,4 @@ void calcular_fo(Solucao& s);
 void heu_cons_ale(Solucao& s);
 void ordenar_navios();
 void heu_con_gul(Solucao& s);
+void heu_con_ale_gul(Solucao& s, const int per_ale);

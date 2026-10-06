@@ -5,6 +5,8 @@
 #include <time.h>
 #include "pab.h"
 
+#define MAX(A, B) ((A > B) ? A : B) 
+
 int main() {
     srand(time(NULL));
     char arq[50];
@@ -149,6 +151,29 @@ void heu_con_gul(Solucao& s) {
             berco_atual = (berco_atual + 1) % num_ber;
         }
         s.vet_seq_ber[berco_atual][s.vet_qtd_ber[berco_atual]] = vet_nav_ord[n];
+        s.vet_qtd_ber[berco_atual]++;
+        berco_atual = (berco_atual + 1) % num_ber;
+    }
+}
+
+void heu_con_ale_gul(Solucao& s, const int per_ale) {
+    memset(s.vet_qtd_ber, 0, sizeof(s.vet_qtd_ber));
+    ordenar_navios();
+    int vet_aux[MAX_NAV];
+    memcpy(&vet_aux, &vet_nav_ord, sizeof(vet_nav_ord));
+    int qtde = MAX(1, (per_ale / 100.0) * num_nav);
+    for(int i = 0; i < qtde; i++) {
+        int pos = i + rand() % (num_nav - i);
+        int aux = vet_aux[i];
+        vet_aux[i] = vet_aux[pos];
+        vet_aux[pos] = aux;
+    }
+    int berco_atual = 0;
+    for(int n = 0; n < num_nav; n++) {
+        while(mat_tem_ate[berco_atual][vet_aux[n]] == 0) {
+            berco_atual = (berco_atual + 1) % num_ber;
+        }
+        s.vet_seq_ber[berco_atual][s.vet_qtd_ber[berco_atual]] = vet_aux[n];
         s.vet_qtd_ber[berco_atual]++;
         berco_atual = (berco_atual + 1) % num_ber;
     }
