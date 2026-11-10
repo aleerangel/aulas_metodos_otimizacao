@@ -217,3 +217,41 @@ void heu_bl_rand(Solucao& s, const int iter) {
         }
     }
 }
+
+void heu_bl_mm(Solucao& s) {
+    Solucao mel_s;
+    memcpy(&mel_s, &s, sizeof(Solucao));
+    while(1) {
+        int mel_fo = s.fo;
+        int flag = 0;
+        for(int k = 0; k < num_ber; k++) {
+            int ber_ori = k;
+            int fo_ori = s.fo;
+            for(int n = 0; n < s.vet_qtd_ber[k]; n++) {
+                int nav_ori = s.vet_seq_ber[k][n];
+                for(int b = 0; b < num_ber; b++) {
+                    if(b != ber_ori && mat_tem_ate[b][nav_ori] != 0) {
+                        Solucao s_aux;
+                        memcpy(&s_aux, &s, sizeof(Solucao));
+                        for(int i = n; i < s_aux.vet_qtd_ber[k] -  1; i++) {
+                            s_aux.vet_seq_ber[k][i] = s_aux.vet_seq_ber[k][i + 1];
+                        }
+                        s_aux.vet_qtd_ber[k]--;
+                        s_aux.vet_seq_ber[b][s_aux.vet_qtd_ber[b]] = nav_ori;
+                        s_aux.vet_qtd_ber[b]++;
+                        calcular_fo(s_aux);
+                        if(s_aux.fo < mel_s.fo) {
+                            memcpy(&mel_s, &s_aux, sizeof(Solucao));
+                            flag = 1;
+                        }
+                    }
+                }
+            } 
+        }
+        if(flag) {
+            memcpy(&s, &mel_s, sizeof(Solucao));
+        } else {
+            break;
+        }
+    }
+}
