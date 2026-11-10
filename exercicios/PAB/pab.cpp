@@ -203,3 +203,17 @@ void gerar_vizinha(Solucao& s) {
     s.vet_seq_ber[ber_des][s.vet_qtd_ber[ber_des]] = nav;
     s.vet_qtd_ber[ber_des]++; 
 }
+
+void heu_bl_rand(Solucao& s, const int iter) {
+    Solucao s_aux;
+    INICIO : ;
+    for(int i = 0; i < iter; i++) {
+        memcpy(&s_aux, &s, sizeof(Solucao));
+        gerar_vizinha(s_aux);
+        calcular_fo(s_aux);
+        if (s_aux.fo < s.fo) {
+            memcpy(&s, &s_aux, sizeof(Solucao));
+            goto INICIO;
+        }
+    }
+}
